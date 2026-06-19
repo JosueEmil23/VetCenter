@@ -1,0 +1,31 @@
+-- 1. CREAR LA BASE DE DATOS
+CREATE DATABASE IF NOT EXISTS bd_veterinaria_duenos;
+
+-- 2. SELECCIONAR LA BASE DE DATOS PARA USARLA
+USE bd_veterinaria_duenos;
+
+-- 3. CREAR LA TABLA DE DUEÑOS
+CREATE TABLE IF NOT EXISTS duenos (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- ID entero solicitado
+    nombre VARCHAR(100) NOT NULL,
+    apellido VARCHAR(100) NOT NULL,
+    telefono VARCHAR(15),
+    correo VARCHAR(150) UNIQUE
+) ENGINE=InnoDB;
+
+-- 4. CREAR LA TABLA DE MASCOTAS
+CREATE TABLE IF NOT EXISTS mascotas (
+    id INT AUTO_INCREMENT PRIMARY KEY, -- ID entero solicitado
+    nombre VARCHAR(50) NOT NULL,
+    especie VARCHAR(50) NOT NULL, -- Ej: Perro, Gato
+    raza VARCHAR(50),
+    edad INT,
+    dueno_id INT NOT NULL, -- Llave foránea que conecta con el dueño (también INT)
+    
+    -- Relación de integridad: Si se borra un dueño, se borran sus mascotas automáticamente
+    CONSTRAINT fk_mascotas_duenos 
+        FOREIGN KEY (dueno_id) 
+        REFERENCES duenos(id) 
+        ON DELETE CASCADE 
+        ON UPDATE CASCADE
+) ENGINE=InnoDB;
