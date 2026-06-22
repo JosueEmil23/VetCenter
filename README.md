@@ -31,3 +31,6 @@ Este proyecto está preparado para ser levantado íntegramente mediante **Docker
    ```bash
    git clone [https://github.com/JosueEmil23/VetCenter.git](https://github.com/JosueEmil23/VetCenter.git)
    cd VetCenter
+2. **Levanta todos los servicios:**
+   ```bash
+   docker-compose up --build
