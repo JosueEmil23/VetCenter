@@ -1,0 +1,42 @@
+server:
+  port: 8086
+
+spring:
+  application:
+    name: api-gateway
+
+  cloud:
+    gateway:
+      discovery:
+        locator:
+          enabled: true
+          lower-case-id: true
+
+
+      routes:
+        - id: auth-service
+          uri: lb://auth-service
+          predicates:
+            - Path=/api/auth/**
+
+        - id: duenos-mascotas
+          uri: lb://duenos-mascotas
+          predicates:
+            - Path=/api/mascotas/**, /api/duenos/**
+
+        - id: reservas
+          uri: lb://reservas
+          predicates:
+            - Path=/api/reservas/**
+
+        - id: historial-service
+          uri: lb://historial-service
+          predicates:
+            - Path=/api/historiales/**
+
+eureka:
+  client:
+    service-url:
+      defaultZone: http://${EUREKA_HOST:localhost}:8761/eureka
+
+

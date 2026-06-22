@@ -1,0 +1,98 @@
+version: '3.8'
+
+services:
+
+  mysql:
+    image: mysql:9.6.0
+    container_name: vet-mysql
+    ports:
+      - "3306:3306"
+    environment:
+      - MYSQL_ROOT_PASSWORD=mysql
+      - MYSQL_ALLOW_EMPTY_PASSWORD=yes
+    volumes:
+      - mysql_data:/var/lib/mysql
+
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: vet-rabbitmq
+    ports:
+      - "5672:5672"
+      - "15672:15672"
+    environment:
+      - RABBITMQ_DEFAULT_USER=guest
+      - RABBITMQ_DEFAULT_PASS=guest
+
+
+  eureka-server:
+    build: ./eureka-server
+    container_name: vet-eureka
+    ports:
+      - "8761:8761"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - rabbitmq
+
+  api-gateway:
+    build: ./api-gateway
+    container_name: vet-gateway
+    ports:
+      - "8086:8086"
+    environment:
+      - SPRING_PROFILES_ACTIVE=docker
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+
+
+  auth-service:
+    build: ./auth-service
+    container_name: vet-auth-service
+    environment:
+      - DB_HOST=mysql
+      - EUREKA_HOST=eureka-server
+      - SPRING_PROFILES_ACTIVE=docker
+    depends_on:
+      - eureka-server
+      - mysql
+
+  duenos-mascotas:
+    build: ./duenos_mascotas
+    container_name: vet-duenos-mascotas
+    environment:
+      - DB_HOST=mysql
+      - EUREKA_HOST=eureka-server
+    depends_on:
+      - eureka-server
+      - mysql
+
+  historial-service:
+    build: ./historial-service
+    container_name: vet-historial-service
+    environment:
+      - DB_HOST=mysql
+      - EUREKA_HOST=eureka-server
+      - RABBITMQ_HOST=rabbitmq
+      - RABBIT_MQ=rabbitmq
+    depends_on:
+      - eureka-server
+      - mysql
+      - rabbitmq
+
+
+  reservas:
+    build: ./reservas
+    container_name: vet-reservas
+    environment:
+      - DB_HOST=mysql
+      - EUREKA_HOST=eureka-server
+      - RABBITMQ_HOST=rabbitmq
+      - RABBIT_MQ=rabbitmq
+    depends_on:
+      - eureka-server
+      - mysql
+      - rabbitmq
+
+volumes:
+  mysql_data:

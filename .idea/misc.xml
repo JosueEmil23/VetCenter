@@ -6,6 +6,12 @@
       <list>
         <option value="$PROJECT_DIR$/reservas (2)/reservas/reservas/pom.xml" />
         <option value="$PROJECT_DIR$/duenos_mascotas (2)/duenos_mascotas/duenos_mascotas/pom.xml" />
+        <option value="$PROJECT_DIR$/eureka-server/pom.xml" />
+        <option value="$PROJECT_DIR$/historial-service/pom.xml" />
+        <option value="$PROJECT_DIR$/duenos_mascotas/pom.xml" />
+        <option value="$PROJECT_DIR$/reservas/pom.xml" />
+        <option value="$PROJECT_DIR$/auth-service/pom.xml" />
+        <option value="$PROJECT_DIR$/api-gateway/pom.xml" />
       </list>
     </option>
   </component>

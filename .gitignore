@@ -1,0 +1,18 @@
+# Carpetas y archivos de compilación
+target/
+*.class
+*.jar
+*.war
+
+# IDEs
+.idea/
+.vscode/
+*.iml
+
+# Sistema
+.DS_Store
+Thumbs.db
+.env
+
+# Logs
+*.log
