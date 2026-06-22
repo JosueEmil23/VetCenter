@@ -13,7 +13,7 @@ El sistema está compuesto por los siguientes microservicios:
 * **Historial Service**: Almacenamiento de historiales clínicos y eventos.
 
 ## 🛠️ Tecnologías Utilizadas
-* **Backend**: Java 17, Spring Boot, Spring Cloud, Spring Security, JWT.
+* **Backend**: Java 25, Spring Boot, Spring Cloud, Spring Security, JWT.
 * **Orquestación**: Docker, Docker Compose.
 * **Comunicación**: Feign Client (Síncrono), RabbitMQ (Asíncrono/Eventos).
 * **Bases de Datos**: (Indicar aquí su base de datos, ej: MySQL/PostgreSQL).
